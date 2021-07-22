@@ -592,3 +592,365 @@ class possibilities(Scene):
             fact4.shift, 5*DOWN+3*RIGHT,
             nyquistOption.scale, 0
         )
+
+class deltaArg(Scene):
+    def construct(self):
+        
+        if False:
+            textExample = Tex(   
+                                "F_{(j\\omega)}",
+                                ":=",
+                                "(",
+                                "j\\omega",
+                                "- ",
+                                "\\beta",
+                                ")",
+                                color=WHITE
+                            )
+
+            textBetaIn = Tex("\\qquad", "\\beta", " \\in \\mathbb{C}")
+            textBetaIn[0].set_color(ORANGE)
+
+            textBetaIn.next_to(textExample, RIGHT, 2+LEFT)
+
+            self.play(Write(textExample))
+            self.play(textExample[5].set_color, ORANGE)
+            self.play(Write(textBetaIn))
+
+            self.wait()
+            self.play(
+                textBetaIn[0].set_color, WHITE,
+                textExample[5].set_color, WHITE
+            )
+
+            formula = VGroup(textExample, textBetaIn)
+
+            self.play(
+                formula.scale, .9, 
+                formula.shift, 3.2*UP+4*LEFT
+            )
+        else:
+            textExample = Tex(   
+                                "F_{(j\\omega)}",
+                                ":=",
+                                "(",
+                                "j\\omega",
+                                "- ",
+                                "\\beta",
+                                ")",
+                                color=WHITE
+                            )
+
+            textBetaIn = Tex("\\qquad", "\\beta", " \\in \\mathbb{C}")
+            textBetaIn.next_to(textExample, RIGHT, 2+LEFT)
+
+            formula = VGroup(textExample, textBetaIn)
+            formula.scale(.9), 
+            formula.shift(3.2*UP+4*LEFT)
+            self.add(formula)
+
+        # -----------------------------------------------
+        axes = Axes(
+            x_range=(-3, 3), y_range=(-3, 3),
+            height=6, width=6,
+            axis_config={
+                "stroke_color": GREY_A,
+                "stroke_width": 2,
+            }
+        )
+        # Keyword arguments of add_coordinate_labels can be used to
+        # configure the DecimalNumber mobjects which it creates and
+        # adds to the axes
+        #axes.add_coordinate_labels(
+        #    font_size=30,
+        #    num_decimal_places=0,
+        #)
+
+        xLabel = Tex("\\Re\{\\beta\}")
+        xLabel.move_to(axes.c2p(4, 0))
+        xLabel2 = Tex("\\Re\{F_{(j\\omega)}\}")
+        xLabel2.move_to(axes.c2p(4.2, 0))
+
+        yLabel = Tex("\\Im\{\\beta\}")
+        yLabel.move_to(axes.c2p(1, 3))
+        yLabel2 = Tex("\\Im\{F_{(j\\omega)}\}")
+        yLabel2.move_to(axes.c2p(1, 3.3))
+
+        grid = VGroup(axes, xLabel, yLabel)
+        gridAll = VGroup(grid, xLabel2, yLabel2)
+
+        gridAll.scale(.9)
+        gridAll.shift(2.2*RIGHT)
+
+        if False:
+            self.play(Write(grid))
+
+            # Betas
+            dot = Dot(color=ORANGE)
+            textBeta = Tex("- \\beta")
+            textBeta.scale(.7)
+            textBeta.set_color(ORANGE)
+            textBeta.next_to(dot)
+            indicator = VGroup(dot, textBeta)
+
+            betaOffset = .375
+            infoTextScale = .5
+
+            dotEx1 = Dot(color=BLUE_A)
+            dotEx1.move_to(axes.c2p(-2, -1))
+            textEx1 = Tex("\\Re\{\\beta\} > 0")
+            textEx1.scale(infoTextScale)
+            textEx1.next_to(dotEx1, DOWN, 2*UP)
+            dotEx2 = Dot(color=RED_A)
+            dotEx2.move_to(axes.c2p(0, 0))
+            textEx2 = Tex("\\Re\{\\beta\} = 0")
+            textEx2.scale(infoTextScale)
+            textEx2.next_to(dotEx2, DOWN, 3*UP)
+            dotEx3 = Dot(color=GREEN_A)
+            dotEx3.move_to(axes.c2p(2, 1))
+            textEx3 = Tex("\\Re\{\\beta\} < 0")
+            textEx3.scale(infoTextScale)
+            textEx3.next_to(dotEx3, DOWN, 4*UP)
+
+            indicator.move_to(axes.c2p(-3+betaOffset, -2))
+            self.play(FadeIn(indicator, scale=0.5))
+            self.play(indicator.animate.move_to(axes.c2p(-2+betaOffset, -1)))
+            self.play(FadeIn(dotEx1, scale=0.6))
+            self.play(Write(textEx1))
+            self.wait()
+            self.play(indicator.animate.move_to(axes.c2p(0+betaOffset, 0)))
+            self.play(FadeIn(dotEx2, scale=0.6))
+            self.play(Write(textEx2))
+            self.wait()
+            self.play(indicator.animate.move_to(axes.c2p(2+betaOffset, 1)))
+            self.play(FadeIn(dotEx3, scale=0.6))
+            self.play(Write(textEx3))
+            self.wait()
+            self.play(
+                FadeOut(indicator)
+            )
+
+            self.wait()
+
+            self.play(
+                ReplacementTransform(xLabel, xLabel2),
+                ReplacementTransform(yLabel, yLabel2)
+            )
+        else:
+            self.add(grid)
+
+            # Betas
+            dot = Dot(color=ORANGE)
+            textBeta = Tex("- \\beta")
+            textBeta.scale(.7)
+            textBeta.set_color(ORANGE)
+            textBeta.next_to(dot)
+            indicator = VGroup(dot, textBeta)
+
+            betaOffset = .375
+            infoTextScale = .5
+
+            dotEx1 = Dot(color=BLUE_A)
+            dotEx1.move_to(axes.c2p(-2, -1))
+            textEx1 = Tex("\\Re\{\\beta\} > 0")
+            textEx1.scale(infoTextScale)
+            textEx1.next_to(dotEx1, DOWN, 2*UP)
+            dotEx2 = Dot(color=RED_A)
+            dotEx2.move_to(axes.c2p(0, 0))
+            textEx2 = Tex("\\Re\{\\beta\} = 0")
+            textEx2.scale(infoTextScale)
+            textEx2.next_to(dotEx2, DOWN, 3*UP)
+            dotEx3 = Dot(color=GREEN_A)
+            dotEx3.move_to(axes.c2p(2, 1))
+            textEx3 = Tex("\\Re\{\\beta\} < 0")
+            textEx3.scale(infoTextScale)
+            textEx3.next_to(dotEx3, DOWN, 4*UP)
+
+            dotEx1.scale(.6)
+            self.add(dotEx1)
+            self.add(textEx1)
+            dotEx2.scale(.6)
+            self.add(dotEx2)
+            self.add(textEx2)
+            dotEx3.scale(.6)
+            self.add(dotEx3)
+            self.add(textEx3)
+            self.play(
+                FadeOut(indicator)
+            )
+
+
+
+        # ----------------------------------------
+        self.play(
+            dotEx1.scale, 1.5,
+            dotEx2.scale, 1.5,
+            dotEx3.scale, 1.5,
+        )
+
+        if False:
+            lines = [
+                Line(dotEx1.get_bottom()+DOWN, dotEx1.get_center()),
+                Line(dotEx1.get_center(), dotEx1.get_bottom()+3*UP),
+                Line(dotEx2.get_bottom()+2*DOWN, dotEx2.get_center()),
+                Line(dotEx2.get_center(), dotEx2.get_bottom()+2*UP),
+                Line(dotEx3.get_bottom()+3*DOWN, dotEx3.get_center()),
+                Line(dotEx3.get_center(), dotEx3.get_bottom()+UP)
+            ]
+
+            for offset in [0, 1]:
+                lines[offset].set_color(BLUE_A)
+                lines[offset+2].set_color(RED_A)
+                lines[offset+4].set_color(GREEN_A)
+
+                self.play(
+                    Write(lines[offset]),
+                    Write(lines[offset+2]),
+                    Write(lines[offset+4])
+                )
+
+            ex1 = VGroup(dotEx1, lines[0], lines[1])
+            ex2 = VGroup(dotEx2, lines[2], lines[3])
+            ex3 = VGroup(dotEx3, lines[4], lines[5])
+
+        else:
+
+            ex1 = VGroup(dotEx1)
+            ex2 = VGroup(dotEx2)
+            ex3 = VGroup(dotEx3)
+
+        # ----------------------------------------------
+
+        self.play(
+            FadeOut(ex2),
+            FadeOut(ex3)
+        )
+
+        argDot = Dot()
+        argDot.scale(0)
+        argDot.move_to(axes.c2p(0, 0))
+        argArrow = always_redraw(lambda: Arrow(axes.c2p(0, 0), argDot.get_center(), buff=0))
+        argText = Tex("F_{(j\\omega)}")
+        argText.scale(.7)
+        argText.next_to(argDot, LEFT)
+        argIndicator = VGroup(argDot, argText)
+
+        indicatorOffset = -.5;
+        self.add(argDot)
+        self.play(FadeIn(argIndicator), FadeIn(argArrow))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -1)))
+
+        self.wait()
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 2)))
+
+
+        self.wait()
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -2)))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 2)))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -2)))
+
+        self.wait()
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -300)))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -5)))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 5)))
+        self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 300)))
+
+        self.play(FadeOut(argIndicator), FadeOut(argArrow))
+
+
+        # -----------------------------------------------------------------
+        textDelta = Tex(
+            "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
+            "arg F_{(j\\omega)} = ", "- \\pi",
+            "\\quad \\hdots \\quad", "\\Re\{\\beta\} > 0"
+        )
+
+        textDelta[2].set_color(BLUE)
+        textDelta.shift(4*LEFT+2*UP)
+        textDelta.scale(.7)
+
+        self.play(Write(textDelta))
+
+        self.wait()
+
+        self.play(
+            FadeOut(ex1),
+            FadeIn(ex2)
+        )
+
+        # --------------------------------------------------
+        # Delta 2
+        self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, 0)))
+        self.play(FadeIn(argIndicator), FadeIn(argArrow))
+
+
+        self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, 2)))
+        self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, -2)))
+
+        self.wait()
+
+
+        self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, -10)))
+        self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, 10)))
+
+        textDelta2 = Tex(
+            "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
+            "arg F_{(j\\omega)} = ", "0",
+            "\\quad \\hdots \\quad", "\\Re\{\\beta\} = 0"
+        )
+
+        textDelta2[2].set_color(RED_A)
+        textDelta2.shift(4*LEFT+0*UP)
+        textDelta2.scale(.7)
+
+        self.play(Write(textDelta2))
+
+        # --------------------------------------------------
+        # Delta 3
+        self.play(
+            FadeOut(ex2),
+            FadeIn(ex3)
+        )
+
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 0)))
+        self.play(FadeIn(argIndicator), FadeIn(argArrow))
+
+
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 2)))
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -2)))
+
+        self.wait()
+
+
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -10)))
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -300)))
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 10)))
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 300)))
+
+        textDelta3 = Tex(
+            "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
+            "arg F_{(j\\omega)} = ", "\\pi",
+            "\\quad \\hdots \\quad", "\\Re\{\\beta\} = 0"
+        )
+
+        textDelta3[2].set_color(GREEN)
+        textDelta3.shift(4*LEFT+2*DOWN)
+        textDelta3.scale(.7)
+
+        self.play(Write(textDelta3))
+
+        self.wait()
+
+        self.play(
+            FadeOut(ex3), 
+            FadeOut(argIndicator), 
+            FadeOut(argArrow)
+        )
+
+        self.play(
+            FadeOut(gridAll), 
+            FadeOut(textDelta), FadeOut(textDelta2), FadeOut(textDelta3),
+            FadeOut(textExample), 
+            FadeOut(textEx1), FadeOut(textEx2), FadeOut(textEx3),
+            FadeOut(textBetaIn)
+        )

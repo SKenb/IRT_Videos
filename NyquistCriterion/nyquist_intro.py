@@ -596,7 +596,7 @@ class possibilities(Scene):
 class deltaArg(Scene):
     def construct(self):
         
-        if False:
+        if True:
             textExample = Tex(   
                                 "F_{(j\\omega)}",
                                 ":=",
@@ -682,7 +682,7 @@ class deltaArg(Scene):
         gridAll.scale(.9)
         gridAll.shift(2.2*RIGHT)
 
-        if False:
+        if True:
             self.play(Write(grid))
 
             # Betas
@@ -788,7 +788,7 @@ class deltaArg(Scene):
             dotEx3.scale, 1.5,
         )
 
-        if False:
+        if True:
             lines = [
                 Line(dotEx1.get_bottom()+DOWN, dotEx1.get_center()),
                 Line(dotEx1.get_center(), dotEx1.get_bottom()+3*UP),
@@ -855,6 +855,10 @@ class deltaArg(Scene):
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 5)))
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 300)))
 
+
+        self.wait()
+        
+
         self.play(FadeOut(argIndicator), FadeOut(argArrow))
 
 
@@ -912,7 +916,7 @@ class deltaArg(Scene):
             FadeIn(ex3)
         )
 
-        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 0)))
+        self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, 2)))
         self.play(FadeIn(argIndicator), FadeIn(argArrow))
 
 
@@ -953,4 +957,630 @@ class deltaArg(Scene):
             FadeOut(textExample), 
             FadeOut(textEx1), FadeOut(textEx2), FadeOut(textEx3),
             FadeOut(textBetaIn)
+        )
+
+class derivation(Scene):
+    def construct(self):
+
+        # --------------------------------------------
+        # List sevaral examples
+        if False:
+            textEx1 = Tex(   
+                "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
+                "F_{(j\\omega)}",
+                ":=",
+                "(",
+                "j\\omega",
+                "- ",
+                "\\beta",
+                ")"
+            )
+
+            textEx1Solution = Tex(   
+                r"= \left. \begin{array}{ccc} - \pi & \hdots & \Re{\beta} > 0 \\- 0 & \hdots & \Re{\beta} = 0 \\+ \pi & \hdots & \Re{\beta} < 0 \\ \end{array} \right."
+            )
+
+            textEx1Solution.next_to(textEx1)
+
+            ex1 = VGroup(textEx1, textEx1Solution)
+            ex1.scale(.85)
+            ex1.shift(LEFT)
+
+            self.play(Write(textEx1))
+            self.play(Write(textEx1Solution))
+
+            self.play(
+                ex1.shift, 3*UP+3*LEFT,
+                ex1.scale, .7
+            )
+
+            self.play()
+
+            # --------------------------------------------
+            # Second examples
+            
+            textFjw = Tex("F_{(j\\omega)} :=")
+
+            textEx2 = Tex(   
+                "(j\\omega - \\beta)",
+                "(j\\omega + \\alpha)"
+            )
+
+            textEx22 = Tex(   
+                "{(j\\omega - \\beta)",
+                "(j\\omega + \\alpha)",
+                "\over",
+                "(j\\omega - \\gamma) (j\\omega - \\epsilon)}"
+            )
+
+            textEx23 = Tex(   
+                "{(j\\omega - \\beta)(j\\omega + \\alpha)(j\\omega + \\xi)",
+                "\over",
+                "(j\\omega - \\gamma) (j\\omega - \\epsilon)(j\\omega + \\delta)}"
+            )
+
+            textExPoints = Tex(r" = \hdots")
+
+            textFjw.shift(2*LEFT)
+            textEx2.next_to(textFjw)
+            textEx22.next_to(textFjw)
+            textEx23.next_to(textFjw)
+            textExPoints.next_to(textEx23)
+
+            self.play(Write(textFjw))
+            self.play(
+                Write(textEx2),
+                ex1.shift, 5*UP+3*LEFT
+            )
+
+            self.wait()
+            self.play(ReplacementTransform(textEx2, textEx22))
+            self.play(ReplacementTransform(textEx22, textEx23))
+            self.play(Write(textExPoints))
+
+            textGeneral = Tex(
+                r"K",
+                r"\; {\displaystyle \prod_{i = 1}^{m} (j\omega - \beta_i)",
+                r"\over",
+                r"\displaystyle \prod_{k = 1}^{n} (j\omega - \alpha_k)}",
+            )
+
+            textGeneral.next_to(textFjw)
+            self.play(
+                ReplacementTransform(textEx23, textGeneral),
+                FadeOut(textExPoints)
+            )
+
+            self.wait()
+
+            textFacts = [
+                Tex(r"F_{(j\omega)} \text{ is coprime}"),
+                Tex(r"K \in \mathbb{R}"),
+                Tex(r"\alpha_k, \beta_i \in \mathbb{C}"),
+                Tex(r"m \hdots \text{ number of zeros}"),
+                Tex(r"n \hdots \text{ number of poles}"),
+            ]
+
+            forumla = VGroup(textFjw, textGeneral)
+            facts = VGroup(textFacts[0], textFacts[1], textFacts[2], 
+                        textFacts[3], textFacts[4])
+
+            self.play(
+                forumla.shift, 2.5*LEFT
+            )
+
+            for index, textFact in enumerate(textFacts):
+                textFact.shift((len(textFacts)/2 - index) * UP+4*RIGHT)
+                self.play(Write(textFact))
+
+            self.wait()
+            self.play(
+                facts.shift, 7*RIGHT
+            )
+
+            
+        else:
+            textFjw = Tex("F_{(j\\omega)} :=")
+            textGeneral = Tex(
+                r"K",
+                r"\; {\displaystyle \prod_{i = 1}^{m} (j\omega - \beta_i)",
+                r"\over",
+                r"\displaystyle \prod_{k = 1}^{n} (j\omega - \alpha_k)}",
+            )
+            textGeneral.next_to(textFjw)
+
+
+            forumla = VGroup(textFjw, textGeneral)
+            forumla.shift(4.5*LEFT)
+            self.add(forumla)
+
+        if False:
+            textArgFjw = Tex(r"arg \; F_{(j\omega)} = ")
+            textArg = Tex(r"arg")
+            textDeltaArg = Tex(r"\overset{\infty}{\underset{-\infty}{\Delta}} arg")
+
+            textArgFjw.shift(5*LEFT)
+            textArg.next_to(textArgFjw)
+            textDeltaArg.next_to(textArgFjw)
+
+            self.wait()
+            self.play(ReplacementTransform(textFjw, textArgFjw))
+            self.play(
+                Write(textArg),
+                textGeneral.shift, .6*RIGHT
+            )
+
+            textArgSum = Tex(
+                r"arg K",
+                r"+", 
+                r"\displaystyle \sum_{i = 1}^{m} arg (j\omega - \beta_i)",
+                r"-",
+                r"\displaystyle \sum_{k = 1}^{n} arg (j\omega - \alpha_k)}"
+            )
+
+            for colorIndex in [1, 3]:
+                textArgSum[colorIndex].set_color(ORANGE)
+
+            textArgSum.next_to(textArgFjw)
+
+            self.play(
+                FadeOut(textArg),
+                ReplacementTransform(textGeneral, textArgSum)
+            )
+
+            self.wait()
+            self.play(
+                textArgSum[1].set_color, WHITE,
+                textArgSum[3].set_color, WHITE
+            )
+
+            oldStuff = VGroup(textArg, textDeltaArg, textArgFjw, textGeneral, textArgSum)
+        else:
+            oldStuff = VGroup(textGeneral, textFjw)
+
+        if False:
+            textDeltaArgFormula = Tex(
+                    r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                    r"F_{(j\omega)} =",
+                    r"\overset{\infty}{\underset{-\infty}{\Delta}} ",
+                    r"arg K",
+                    r"+ ",
+                    r"\displaystyle \sum_{i = 1}^{m}",
+                    r"\overset{\infty}{\underset{-\infty}{\Delta}} arg (j\omega - ",
+                    r"\beta_i",
+                    r")",
+                    r" - ",
+                    r"\displaystyle \sum_{k = 1}^{n}",
+                    r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                    r"(j\omega - \alpha_k)"
+                )
+
+            textDeltaArgFormula.scale(0.75)
+
+            denominator = VGroup(
+                textDeltaArgFormula[-1],
+                textDeltaArgFormula[-2],
+                textDeltaArgFormula[-3]
+            )
+
+            minusSign = textDeltaArgFormula[-4]
+                
+
+            self.wait()
+            self.play(
+                ReplacementTransform(oldStuff, textDeltaArgFormula)
+            )
+
+            textKToZero = Tex("0")
+            textKToZero.set_color(ORANGE)
+            textKToZero.shift(2*LEFT)
+            elemK = VGroup(textDeltaArgFormula[2], textDeltaArgFormula[3])
+            # --------------------------------------------
+            # K
+            self.play(elemK.set_color, ORANGE)
+            self.wait()
+            self.play(ReplacementTransform(elemK, textKToZero))
+            self.play(textKToZero.set_color, WHITE)
+
+            # --------------------------------------------
+            # Nominator
+            allF = VGroup(textDeltaArgFormula, textKToZero)
+
+            nominator = VGroup(textDeltaArgFormula[5], textDeltaArgFormula[6], 
+                            textDeltaArgFormula[7], textDeltaArgFormula[8])
+            self.wait()
+            self.play(nominator.set_color, ORANGE)
+
+            self.wait()
+            self.play(
+                textDeltaArgFormula[5].set_color, WHITE,
+                textDeltaArgFormula[6].set_color, WHITE,
+                textDeltaArgFormula[8].set_color, WHITE,
+                allF.shift, 2*UP
+            )
+
+            # ----------------------------------------------
+            # Add axis and text to visualize l, i and r
+            axes = Axes(
+                x_range=(-3, 3), y_range=(-3, 3),
+                height=6, width=6,
+                axis_config={
+                    "stroke_color": GREY_A,
+                    "stroke_width": 2,
+                }
+            )
+            # Keyword arguments of add_coordinate_labels can be used to
+            # configure the DecimalNumber mobjects which it creates and
+            # adds to the axes
+            axes.add_coordinate_labels(
+                font_size=30,
+                num_decimal_places=0,
+            )
+
+            xLabel = Tex("\\Re\{\}")
+            xLabel.move_to(axes.c2p(4, 0))
+            yLabel = Tex("\\Im\{\}")
+            yLabel.move_to(axes.c2p(1, 3))
+
+            grid = VGroup(axes, xLabel, yLabel)
+
+            grid.scale(.6)
+            grid.shift(DOWN + 3*RIGHT)
+
+
+            self.play(FadeIn(grid))
+
+            dotL1 = Dot() 
+            dotL1.set_color(BLUE_A)
+            dotL1.move_to(axes.c2p(-2, 0))
+            dotL2 = Dot()
+            dotL2.set_color(BLUE_A)
+            dotL2.move_to(axes.c2p(-1, 0))
+            dotIm = Dot()
+            dotIm.set_color(RED_A)
+            dotIm.move_to(axes.c2p(0, 0))
+            dotR1 = Dot()
+            dotR1.set_color(GREEN_A)
+            dotR1.move_to(axes.c2p(1, 0))
+            dotR2 = Dot()
+            dotR2.set_color(GREEN_A)
+            dotR2.move_to(axes.c2p(1.5, 0))
+
+            schiftToLeft = 3 
+            schiftUpDown = 1
+            scaleFactor = 0.75
+            textMLeft = Tex(r"m_l", r"\text{ zeros left to the Imaginary-Axis}")
+            textMLeft[0].set_color(BLUE)
+            textMLeft.scale(scaleFactor)
+            textMLeft.shift(schiftToLeft*LEFT)
+
+            textMOn = Tex(r"m_i", r"\text{ zeros on the Imaginary-Axis}")
+            textMOn[0].set_color(RED)
+            textMOn.scale(scaleFactor)
+            textMOn.shift(schiftToLeft*LEFT+schiftUpDown*DOWN)
+
+            textMRight = Tex(r"m_r", r"\text{ zeros right to the Imaginary-Axis}")
+            textMRight[0].set_color(GREEN)
+            textMRight.scale(scaleFactor)
+            textMRight.shift(schiftToLeft*LEFT+2*schiftUpDown*DOWN)
+
+            textSum = Tex(
+                r"\rightarrow ", 
+                r"m_l", r" + ", 
+                r"m_i", r" + ", 
+                r"m_r", r" = m")
+
+            textSum[1].set_color(BLUE)
+            textSum[3].set_color(RED)
+            textSum[5].set_color(GREEN)
+            textSum.scale(scaleFactor)
+            textSum.shift(schiftToLeft*LEFT+3*schiftUpDown*DOWN)
+
+            dot = Dot()
+            dot.set_color(ORANGE)
+            dot.move_to(axes.c2p(-3, 0))
+            self.play(FadeIn(dot, scale=0.5))
+            self.play(dot.animate.move_to(axes.c2p(-2, 0)))
+            self.play(FadeIn(dotL1, scale=0.75))
+            self.wait()
+            self.play(dot.animate.move_to(axes.c2p(-1, 0)))
+            self.play(FadeIn(dotL2, scale=0.75))
+            self.wait()
+            self.play(
+                Write(textMLeft)
+            )
+            self.wait()
+            self.play(dot.animate.move_to(axes.c2p(0, 0)))
+            self.play(FadeIn(dotIm, scale=0.75))
+            self.wait()
+            self.play(
+                Write(textMOn)
+            )
+            self.wait()
+            self.play(dot.animate.move_to(axes.c2p(1, 0)))
+            self.play(FadeIn(dotR1, scale=0.75))
+            self.wait()
+            self.play(dot.animate.move_to(axes.c2p(1.5, 0)))
+            self.play(FadeIn(dotR2, scale=0.75))
+            self.wait()
+            self.play(
+                Write(textMRight)
+            )
+            self.wait()
+
+
+            self.play(
+                Write(textSum)
+            )
+
+            textMLeftEffect = Tex(
+                r"\Re{\beta} > 0"
+                r"\rightarrow ",
+                r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                r"F_{(j\omega)} = ", r"- \pi"
+            )
+            textMLeftEffect.next_to(textMLeft)
+            textMLeftEffect.scale(scaleFactor)
+            textMLeftEffect[3].set_color(BLUE)
+
+            textMOnEffect = Tex(
+                r"\Re{\beta} = 0"
+                r"\rightarrow ",
+                r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                r"F_{(j\omega)} = ", r"0"
+            )
+            textMOnEffect.next_to(textMOn)
+            textMOnEffect.scale(scaleFactor)
+            textMOnEffect[3].set_color(RED)
+
+            textMRightEffect = Tex(
+                r"\Re{\beta} < 0"
+                r"\rightarrow ",
+                r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                r"F_{(j\omega)} = ", r"+ \pi"
+            )
+            textMRightEffect.next_to(textMRight)
+            textMRightEffect.scale(scaleFactor)
+            textMRightEffect[3].set_color(GREEN)
+
+            self.wait()
+
+            self.play(
+                FadeOut(grid), FadeOut(dotIm),
+                FadeOut(dotR1), FadeOut(dotR2),
+                FadeOut(dotL1), FadeOut(dotL2),
+                FadeOut(dot)
+            )
+
+            self.play(
+                Write(textMLeftEffect),
+                Write(textMOnEffect),
+                Write(textMRightEffect)
+            )
+
+            self.wait()
+
+            mStuff = VGroup(
+                textMLeftEffect, textMOnEffect, textMRightEffect,
+                textMLeft, textMOn, textMRight,
+                textSum
+            )
+
+            self.play(FadeOut(mStuff))
+
+            textResult = Tex(
+                r"\displaystyle \sum_{i = 1}^{m}",
+                r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                r"(j\omega - \beta_i) = ",
+                r"+\pi ", r"\cdot m_l",
+                r"+ 0 ", r"\cdot m_i",
+                r"- \pi ", r"\cdot m_r"
+            )
+            textResult.scale(scaleFactor)
+
+            leftSide = VGroup(textResult[0], textResult[1], textResult[2])
+            leftSide.set_color(ORANGE)
+
+            textResult[4].set_color(BLUE)
+            textResult[6].set_color(RED)
+            textResult[8].set_color(GREEN)
+
+            self.play(Write(leftSide))
+            self.play(leftSide.set_color, ORANGE)
+
+            self.play(
+                Write(textResult[3]),
+                Write(textResult[4])
+            )
+
+            self.play(
+                Write(textResult[5]),
+                Write(textResult[6])
+            )
+
+            self.play(
+                Write(textResult[7]),
+                Write(textResult[8])
+            )
+
+            self.wait()
+            self.play(
+                textResult.set_color, WHITE,
+                leftSide.set_color, WHITE,
+                nominator.set_color, WHITE
+            )
+
+            # ----------------------------------------------
+            # Denominator part
+            self.wait()
+            self.play(denominator.set_color, PURPLE)
+
+            textResult2 = Tex(
+                r"- ",
+                r"\displaystyle \sum_{k = 1}^{n}",
+                r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+                r"(j\omega - \alpha_k) = ",
+                r"+", r"\pi ", r"\cdot n_l",
+                r"+", r" 0 ", r"\cdot n_i",
+                r"-", r" \pi ", r"\cdot n_r"
+            )
+
+            textResult2.shift(2*DOWN)
+            textResult2.scale(scaleFactor)
+
+            leftSide = VGroup(textResult2[1], textResult2[2], textResult2[3])
+            leftSide.set_color(PURPLE)
+
+            textResult2[6].set_color(BLUE)
+            textResult2[9].set_color(RED)
+            textResult2[12].set_color(GREEN)
+
+            self.play(Write(leftSide))
+
+            self.play(
+                Write(textResult2[4]),
+                Write(textResult2[5]),
+                Write(textResult2[6])
+            )
+
+            self.play(
+                Write(textResult2[7]),
+                Write(textResult2[8]),
+                Write(textResult2[9])
+            )
+
+            self.play(
+                Write(textResult2[10]),
+                Write(textResult2[11]),
+                Write(textResult2[12])
+            )
+
+            self.wait()
+
+            self.play(Write(textResult2[0]))
+
+            leftDelta = .35
+            signChange1 = Tex(" -")
+            signChange1.scale(scaleFactor)
+            signChange1.next_to(textResult2[4].get_center())
+            signChange1.shift(leftDelta*LEFT)
+            signChange2 = Tex(" -")
+            signChange2.scale(scaleFactor)
+            signChange2.next_to(textResult2[7].get_center())
+            signChange2.shift(leftDelta*LEFT)
+            signChange3 = Tex(" +")
+            signChange3.scale(scaleFactor)
+            signChange3.next_to(textResult2[10].get_center())
+            signChange3.shift(leftDelta*LEFT)
+
+            self.play(
+                ReplacementTransform(textResult2[4], signChange1),
+                ReplacementTransform(textResult2[7], signChange2),
+                ReplacementTransform(textResult2[10], signChange3),
+            )
+
+            self.wait()
+            self.play(
+                textResult2.set_color, WHITE,
+                denominator.set_color, WHITE
+            )
+
+            self.wait()
+            self.play(
+                textResult.shift, 12*LEFT,
+                VGroup(textResult2, signChange2, signChange3, signChange1).shift, 12*RIGHT,
+                VGroup(textDeltaArgFormula, textKToZero).shift, 4*UP
+            )
+
+        #---------------------------------------
+        # Result with m
+        self.play(FadeOut(oldStuff))
+
+        textDeltaArgFormula = Tex(
+            r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
+            r"F_{(j\omega)} = ",
+            r"+ \pi \cdot ", r"m_l",
+            r"- \pi \cdot ", r"m_r",
+            r"- \pi \cdot ", r"n_l",
+            r"+ \pi \cdot ", r"n_r"
+        )
+
+        textDeltaArgFormula[3].set_color(RED_A)
+        textDeltaArgFormula[5].set_color(RED_A)
+        textDeltaArgFormula[7].set_color(BLUE_A)
+        textDeltaArgFormula[9].set_color(BLUE_A)
+
+        self.play(Write(textDeltaArgFormula))
+
+        textUsingInfo = Tex(r"\text{using: }")
+        textUsingAnd= Tex(r"\text{ and }")
+
+        textUsingM = Tex(r"m = m_l + m_r + m_i \qquad")
+        textUsingM.set_color(RED_A)
+        textUsingN = Tex(r"\qquad n = n_l + n_r + n_i")
+        textUsingN.set_color(BLUE_A)
+
+        textUsingInfo.shift(DOWN+3*LEFT)
+        textUsingM.shift(2*DOWN+4*LEFT)
+        textUsingAnd.next_to(textUsingM, RIGHT, 2*RIGHT)
+        textUsingN.next_to(textUsingAnd, RIGHT, 2*RIGHT)
+
+        self.play(Write(textUsingInfo))
+        self.play(Write(textUsingM))
+        self.play(Write(textUsingAnd))
+        self.play(Write(textUsingN))
+
+        textDeltaArgFormula2 = Tex(
+            r"\overset{\infty}{\underset{-\infty}{\Delta}}",
+            r" arg F_{(j\omega)} = (",
+            r"m", r" - ", r" n",
+            r") \cdot ", r"\pi", " - (", 
+            r"m_i", r" + 2", r"m_r",
+            r") \cdot ", r"\pi", " + (", 
+            r"n_i", r" + 2", r"n_r",
+            r") \cdot ", r"\pi"
+        )
+
+        textDeltaArgFrom0 = Tex(r"\overset{\infty}{\underset{0}{\Delta}}")
+        textDeltaArgFrom0.move_to(textDeltaArgFormula2[0])
+
+
+        textPiHalf1 = Tex(r"\frac{\pi}{2}")
+        textPiHalf1.move_to(textDeltaArgFormula2[6])
+
+        textPiHalf2 = Tex(r"\frac{\pi}{2}")
+        textPiHalf2.move_to(textDeltaArgFormula2[12])
+
+        textPiHalf3 = Tex(r"\frac{\pi}{2}")
+        textPiHalf3.move_to(textDeltaArgFormula2[-1])
+
+        VGroup(
+            textDeltaArgFormula2[2],
+            textDeltaArgFormula2[8],
+            textDeltaArgFormula2[10],
+        ).set_color(RED_A)
+
+
+        VGroup(
+            textDeltaArgFormula2[4],
+            textDeltaArgFormula2[14],
+            textDeltaArgFormula2[16],
+        ).set_color(BLUE_A)
+
+        self.play(
+            FadeOut(VGroup(
+                textUsingInfo, textUsingM,
+                textUsingN, textUsingAnd
+            )),
+            ReplacementTransform(textDeltaArgFormula, textDeltaArgFormula2)
+        )
+
+        self.wait()
+        self.play(
+            ReplacementTransform(textDeltaArgFormula2[0], textDeltaArgFrom0)
+        )
+        self.play(
+            ReplacementTransform(textDeltaArgFormula2[6], textPiHalf1),
+            ReplacementTransform(textDeltaArgFormula2[12], textPiHalf2),
+            ReplacementTransform(textDeltaArgFormula2[-1], textPiHalf3)
         )

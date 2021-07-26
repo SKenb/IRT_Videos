@@ -54,7 +54,7 @@ class controlLoop(Scene):
         plantBox = Rectangle(height=y_diff*1.5, width=length_box)
         plantBox.next_to(((plantInputLine.get_corner(RIGHT))), RIGHT,buff=0)
         
-        plantText = TexText("Plant", "$P_{(s)}$")
+        plantText = TexText("Plant", "$P(s)$")
         plantText[1].scale(1.5)
 
         plantText[0].next_to(plantBox.get_center(), LEFT*0)
@@ -86,7 +86,7 @@ class controlLoop(Scene):
         controllerBox = Rectangle(height=y_diff*1.5, width=length_box)
         controllerBox.next_to(((controllerInputLine.get_corner(RIGHT))), RIGHT,buff=0)
         
-        controllerText = TexText("Controller", "$C_{(s)}$")
+        controllerText = TexText("Controller", "$C(s)$")
         controllerText[1].scale(1.5)
 
         controllerText[0].next_to(controllerBox.get_center(), LEFT*0)
@@ -193,7 +193,7 @@ class Ts(Scene):
         plantBox = Rectangle(height=y_diff*1.5, width=length_box)
         plantBox.next_to(((plantInputLine.get_corner(RIGHT))), RIGHT,buff=0)
         
-        plantText = TexText("Plant", "$P_{(s)}$")
+        plantText = TexText("Plant", "$P(s)$")
         plantText[1].scale(1.5)
 
         plantText[0].next_to(plantBox.get_center(), LEFT*0)
@@ -220,7 +220,7 @@ class Ts(Scene):
         controllerBox = Rectangle(height=y_diff*1.5, width=length_box)
         controllerBox.next_to(((controllerInputLine.get_corner(RIGHT))), RIGHT,buff=0)
         
-        controllerText = TexText("Controller", "$C_{(s)}$")
+        controllerText = TexText("Controller", "$C(s)$")
         controllerText[1].scale(1.5)
 
         controllerText[0].next_to(controllerBox.get_center(), LEFT*0)
@@ -286,35 +286,35 @@ class Ts(Scene):
         # Ts
         ###########################################################
 
-        textTs = Tex(   
-                        "T_{(s)} =",
-                        "{C_{(s)} P_{(s)}",
+        textTsRight = Tex(   
+                        "T(s) =",
+                        "{C(s) P(s)",
                         "\\over",
-                        "1 + C_{(s)} P_{(s)}}",
+                        "1 + C(s) P(s)}",
                         color=WHITE
                     )
 
-        textTsWithL = Tex(   
-                        "T_{(s)} =",
-                        "{L_{(s)}",
+        textTsRightWithL = Tex(   
+                        "T(s) =",
+                        "{L(s)",
                         "\\over",
-                        "1 + L_{(s)}}",
+                        "1 + L(s)}",
                         color=WHITE
                     )
 
         textMuNu = Tex(   
                         " =",
-                        "{\\nu_{(s)}",
+                        "{\\nu_T(s)",
                         "\\over",
-                        "\\mu_{(s)}}",
+                        "\\mu_T(s)}",
                         color=WHITE
                     )
 
-        textTs.next_to(controlLoop.get_corner(BOTTOM), 6*DOWN)
-        textTsWithL.next_to(controlLoop.get_corner(BOTTOM), 6*DOWN)
-        textMuNu.next_to(textTsWithL.get_corner(RIGHT), 3*RIGHT)
+        textTsRight.next_to(controlLoop.get_corner(BOTTOM), 6*DOWN)
+        textTsRightWithL.next_to(controlLoop.get_corner(BOTTOM), 6*DOWN)
+        textMuNu.next_to(textTsRightWithL.get_corner(RIGHT), 3*RIGHT)
 
-        self.play(Write(textTs))
+        self.play(Write(textTsRight))
 
 
         ###########################################################
@@ -323,7 +323,7 @@ class Ts(Scene):
         self.play(
                     plantText.set_color, ORANGE,
                     controllerText.set_color, ORANGE,
-                    textTs[1].set_color, ORANGE
+                    textTsRight[1].set_color, ORANGE
                 )
 
         self.wait(1)
@@ -334,7 +334,7 @@ class Ts(Scene):
         self.play(
                     plantText.set_color, BLUE,
                     controllerText.set_color, BLUE,
-                    textTs[3].set_color, BLUE,
+                    textTsRight[3].set_color, BLUE,
                     minusText.set_color, BLUE
                 )
 
@@ -346,8 +346,8 @@ class Ts(Scene):
         self.play(
                     plantText.set_color, WHITE,
                     controllerText.set_color, WHITE,
-                    textTs[1].set_color, WHITE,
-                    textTs[3].set_color, WHITE,
+                    textTsRight[1].set_color, WHITE,
+                    textTsRight[3].set_color, WHITE,
                     minusText.set_color, WHITE
                 )
 
@@ -355,8 +355,8 @@ class Ts(Scene):
         self.wait(1)
 
         self.play(
-                ReplacementTransform(textTs[1],textTsWithL[1]),
-                ReplacementTransform(textTs[3],textTsWithL[3])
+                ReplacementTransform(textTsRight[1],textTsRightWithL[1]),
+                ReplacementTransform(textTsRight[3],textTsRightWithL[3])
         )
 
         ###########################################################
@@ -389,9 +389,9 @@ class Ts(Scene):
             num_decimal_places=0,
         )
 
-        xLabel = Tex("\\Re\{s_{\mu}\}")
+        xLabel = Tex("\\Re\{s_{\mu_T}\}")
         xLabel.move_to(axes.c2p(4, 0))
-        yLabel = Tex("\\Im\{s_{\mu}\}")
+        yLabel = Tex("\\Im\{s_{\mu_T}\}")
         yLabel.move_to(axes.c2p(1, 3))
 
         grid = VGroup(axes, xLabel, yLabel)
@@ -441,8 +441,8 @@ class Ts(Scene):
         self.wait()
         self.play(
             grid.scale, 0,
-            textTsWithL.scale, 0,
-            textTs.scale, 0,
+            textTsRightWithL.scale, 0,
+            textTsRight.scale, 0,
             dot.scale, 0, dot2.scale, 0,
             textMuNu.scale, 0
         )
@@ -470,9 +470,9 @@ class PoleZero(Scene):
             num_decimal_places=0,
         )
 
-        xLabel = Tex("\\Re\{s_{\mu}\}")
+        xLabel = Tex("\\Re\{s_{\mu_T}\}")
         xLabel.move_to(axes.c2p(4, 0))
-        yLabel = Tex("\\Im\{s_{\mu}\}")
+        yLabel = Tex("\\Im\{s_{\mu_T}\}")
         yLabel.move_to(axes.c2p(1, 3))
 
         grid = VGroup(axes, xLabel, yLabel)
@@ -562,7 +562,7 @@ class possibilities(Scene):
         )
 
         fact1 = TexText("Graphical way")
-        fact2 = TexText("It uses $L_{(j\omega)}$")
+        fact2 = TexText("It uses $L(j\omega)$")
         fact3 = TexText("Less infomration necessary")
         fact4 = TexText("There is a simplified Nyquist criterion")
 
@@ -598,7 +598,7 @@ class deltaArg(Scene):
         
         if True:
             textExample = Tex(   
-                                "F_{(j\\omega)}",
+                                "F(j\\omega)",
                                 ":=",
                                 "(",
                                 "j\\omega",
@@ -631,7 +631,7 @@ class deltaArg(Scene):
             )
         else:
             textExample = Tex(   
-                                "F_{(j\\omega)}",
+                                "F(j\\omega)",
                                 ":=",
                                 "(",
                                 "j\\omega",
@@ -668,12 +668,12 @@ class deltaArg(Scene):
 
         xLabel = Tex("\\Re\{\\beta\}")
         xLabel.move_to(axes.c2p(4, 0))
-        xLabel2 = Tex("\\Re\{F_{(j\\omega)}\}")
+        xLabel2 = Tex("\\Re\{(j\\omega)\}")
         xLabel2.move_to(axes.c2p(4.2, 0))
 
         yLabel = Tex("\\Im\{\\beta\}")
         yLabel.move_to(axes.c2p(1, 3))
-        yLabel2 = Tex("\\Im\{F_{(j\\omega)}\}")
+        yLabel2 = Tex("\\Im\{F(j\\omega)\}")
         yLabel2.move_to(axes.c2p(1, 3.3))
 
         grid = VGroup(axes, xLabel, yLabel)
@@ -830,7 +830,7 @@ class deltaArg(Scene):
         argDot.scale(0)
         argDot.move_to(axes.c2p(0, 0))
         argArrow = always_redraw(lambda: Arrow(axes.c2p(0, 0), argDot.get_center(), buff=0))
-        argText = Tex("F_{(j\\omega)}")
+        argText = Tex("F(j\\omega)")
         argText.scale(.7)
         argText.next_to(argDot, LEFT)
         argIndicator = VGroup(argDot, argText)
@@ -865,7 +865,7 @@ class deltaArg(Scene):
         # -----------------------------------------------------------------
         textDelta = Tex(
             "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
-            "arg F_{(j\\omega)} = ", "- \\pi",
+            "arg F(j\\omega) = ", "- \\pi",
             "\\quad \\hdots \\quad", "\\Re\{\\beta\} > 0"
         )
 
@@ -899,7 +899,7 @@ class deltaArg(Scene):
 
         textDelta2 = Tex(
             "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
-            "arg F_{(j\\omega)} = ", "0",
+            "arg F(j\\omega) = ", "0",
             "\\quad \\hdots \\quad", "\\Re\{\\beta\} = 0"
         )
 
@@ -933,7 +933,7 @@ class deltaArg(Scene):
 
         textDelta3 = Tex(
             "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
-            "arg F_{(j\\omega)} = ", "\\pi",
+            "arg F(j\\omega) = ", "\\pi",
             "\\quad \\hdots \\quad", "\\Re\{\\beta\} = 0"
         )
 
@@ -964,10 +964,10 @@ class derivation(Scene):
 
         # --------------------------------------------
         # List sevaral examples
-        if False:
+        if True:
             textEx1 = Tex(   
                 "\\overset{\\infty}{\\underset{-\\infty}{\\Delta}}",
-                "F_{(j\\omega)}",
+                "F(j\\omega)",
                 ":=",
                 "(",
                 "j\\omega",
@@ -999,7 +999,7 @@ class derivation(Scene):
             # --------------------------------------------
             # Second examples
             
-            textFjw = Tex("F_{(j\\omega)} :=")
+            textFjw = Tex("F(j\\omega) :=")
 
             textEx2 = Tex(   
                 "(j\\omega - \\beta)",
@@ -1040,9 +1040,11 @@ class derivation(Scene):
 
             textGeneral = Tex(
                 r"K",
-                r"\; {\displaystyle \prod_{i = 1}^{m} (j\omega - \beta_i)",
+                r"\; {\displaystyle \prod_{i = 1}^{m}",
+                r" (j\omega - \beta_i)",
                 r"\over",
-                r"\displaystyle \prod_{k = 1}^{n} (j\omega - \alpha_k)}",
+                r"\displaystyle \prod_{k = 1}^{n}",
+                r" (j\omega - \alpha_k)}",
             )
 
             textGeneral.next_to(textFjw)
@@ -1054,13 +1056,17 @@ class derivation(Scene):
             self.wait()
 
             textFacts = [
-                Tex(r"F_{(j\omega)} \text{ is coprime}"),
-                Tex(r"K \in \mathbb{R}"),
+                Tex(r"F(j\omega) \text{ is coprime}"),
+                Tex(r"K", r" \in \mathbb{R}"),
                 Tex(r"\alpha_k, \beta_i \in \mathbb{C}"),
-                Tex(r"m \hdots \text{ number of zeros}"),
-                Tex(r"n \hdots \text{ number of poles}"),
+                Tex(r"m", r" \hdots \text{ number of zeros}"),
+                Tex(r"n", r" \hdots \text{ number of poles}"),
             ]
 
+            textFacts[1][0].set_color(GREEN_A)
+            textFacts[3][0].set_color(BLUE_A)
+            textFacts[4][0].set_color(RED_A)
+            
             forumla = VGroup(textFjw, textGeneral)
             facts = VGroup(textFacts[0], textFacts[1], textFacts[2], 
                         textFacts[3], textFacts[4])
@@ -1073,14 +1079,18 @@ class derivation(Scene):
                 textFact.shift((len(textFacts)/2 - index) * UP+4*RIGHT)
                 self.play(Write(textFact))
 
+            for index, color in {0: GREEN_A, 1: BLUE_A, 4: RED_A}.items():
+                self.play(textGeneral[index].set_color, color)
+
             self.wait()
             self.play(
-                facts.shift, 7*RIGHT
+                facts.shift, 7*RIGHT,
+                textGeneral.set_color, WHITE
             )
 
             
         else:
-            textFjw = Tex("F_{(j\\omega)} :=")
+            textFjw = Tex("F(j\\omega) :=")
             textGeneral = Tex(
                 r"K",
                 r"\; {\displaystyle \prod_{i = 1}^{m} (j\omega - \beta_i)",
@@ -1094,8 +1104,8 @@ class derivation(Scene):
             forumla.shift(4.5*LEFT)
             self.add(forumla)
 
-        if False:
-            textArgFjw = Tex(r"arg \; F_{(j\omega)} = ")
+        if True:
+            textArgFjw = Tex(r"arg \; F(j\omega) = ")
             textArg = Tex(r"arg")
             textDeltaArg = Tex(r"\overset{\infty}{\underset{-\infty}{\Delta}} arg")
 
@@ -1111,14 +1121,19 @@ class derivation(Scene):
             )
 
             textArgSum = Tex(
-                r"arg K",
+                r"arg", 
+                r"K",
                 r"+", 
-                r"\displaystyle \sum_{i = 1}^{m} arg (j\omega - \beta_i)",
+                r"\displaystyle \sum_{i = 1}^{m}",
+                r"arg",
+                r"(j\omega - \beta_i)",
                 r"-",
-                r"\displaystyle \sum_{k = 1}^{n} arg (j\omega - \alpha_k)}"
+                r"\displaystyle \sum_{k = 1}^{n} ",
+                r"arg",
+                r" (j\omega - \alpha_k)}"
             )
 
-            for colorIndex in [1, 3]:
+            for colorIndex in [2, 6]:
                 textArgSum[colorIndex].set_color(ORANGE)
 
             textArgSum.next_to(textArgFjw)
@@ -1130,18 +1145,20 @@ class derivation(Scene):
 
             self.wait()
             self.play(
-                textArgSum[1].set_color, WHITE,
-                textArgSum[3].set_color, WHITE
+                textArgSum[2].set_color, WHITE,
+                textArgSum[6].set_color, WHITE
             )
-
-            oldStuff = VGroup(textArg, textDeltaArg, textArgFjw, textGeneral, textArgSum)
+            oldStuff = VGroup(textArg, textArgFjw, textGeneral, textArgSum)
         else:
             oldStuff = VGroup(textGeneral, textFjw)
 
-        if False:
+        self.remove(textDeltaArg)
+
+        if True:
+
             textDeltaArgFormula = Tex(
                     r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
-                    r"F_{(j\omega)} =",
+                    r"F(j\omega) =",
                     r"\overset{\infty}{\underset{-\infty}{\Delta}} ",
                     r"arg K",
                     r"+ ",
@@ -1155,7 +1172,8 @@ class derivation(Scene):
                     r"(j\omega - \alpha_k)"
                 )
 
-            textDeltaArgFormula.scale(0.75)
+            #textDeltaArgFormula.scale(0.75)
+            textDeltaArgFormula.scale(500)
 
             denominator = VGroup(
                 textDeltaArgFormula[-1],
@@ -1165,11 +1183,14 @@ class derivation(Scene):
 
             minusSign = textDeltaArgFormula[-4]
                 
+            self.wait()
+
+            self.play(
+                oldStuff.scale, 0,
+                textDeltaArgFormula.scale, .75/500
+            )
 
             self.wait()
-            self.play(
-                ReplacementTransform(oldStuff, textDeltaArgFormula)
-            )
 
             textKToZero = Tex("0")
             textKToZero.set_color(ORANGE)
@@ -1317,7 +1338,7 @@ class derivation(Scene):
                 r"\Re{\beta} > 0"
                 r"\rightarrow ",
                 r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
-                r"F_{(j\omega)} = ", r"- \pi"
+                r"F(j\omega) = ", r"- \pi"
             )
             textMLeftEffect.next_to(textMLeft)
             textMLeftEffect.scale(scaleFactor)
@@ -1327,7 +1348,7 @@ class derivation(Scene):
                 r"\Re{\beta} = 0"
                 r"\rightarrow ",
                 r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
-                r"F_{(j\omega)} = ", r"0"
+                r"F(j\omega) = ", r"0"
             )
             textMOnEffect.next_to(textMOn)
             textMOnEffect.scale(scaleFactor)
@@ -1337,7 +1358,7 @@ class derivation(Scene):
                 r"\Re{\beta} < 0"
                 r"\rightarrow ",
                 r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
-                r"F_{(j\omega)} = ", r"+ \pi"
+                r"F(j\omega) = ", r"+ \pi"
             )
             textMRightEffect.next_to(textMRight)
             textMRightEffect.scale(scaleFactor)
@@ -1491,14 +1512,16 @@ class derivation(Scene):
                 VGroup(textResult2, signChange2, signChange3, signChange1).shift, 12*RIGHT,
                 VGroup(textDeltaArgFormula, textKToZero).shift, 4*UP
             )
+        else:
+            self.play(FadeOut(oldStuff))
 
         #---------------------------------------
         # Result with m
-        self.play(FadeOut(oldStuff))
+       
 
         textDeltaArgFormula = Tex(
             r"\overset{\infty}{\underset{-\infty}{\Delta}} arg ",
-            r"F_{(j\omega)} = ",
+            r"F(j\omega) = ",
             r"+ \pi \cdot ", r"m_l",
             r"- \pi \cdot ", r"m_r",
             r"- \pi \cdot ", r"n_l",
@@ -1532,7 +1555,7 @@ class derivation(Scene):
 
         textDeltaArgFormula2 = Tex(
             r"\overset{\infty}{\underset{-\infty}{\Delta}}",
-            r" arg F_{(j\omega)} = (",
+            r" arg F(j\omega) = (",
             r"m", r" - ", r" n",
             r") \cdot ", r"\pi", " - (", 
             r"m_i", r" + 2", r"m_r",
@@ -1584,3 +1607,955 @@ class derivation(Scene):
             ReplacementTransform(textDeltaArgFormula2[12], textPiHalf2),
             ReplacementTransform(textDeltaArgFormula2[-1], textPiHalf3)
         )
+
+class nyquist(Scene):
+    def construct(self):
+        
+        textTs = Tex("T(s) = ")
+        textTs.shift(2*LEFT)
+
+        textCP = Tex(
+            r"{",
+            r"C(s)P(s)",
+            r"\over",
+            r"1 + ",
+            r"C(s)P(s)}",
+            r" = "
+        )
+        textCP.next_to(textTs)
+
+        self.play(Write(textTs))
+        self.play(Write(textCP[0:4]))
+
+        self.play(
+            textCP[2].set_color, ORANGE,
+            textCP[3].set_color, ORANGE
+        )
+
+        self.wait()
+        self.play(textCP[0:4].set_color, WHITE)
+
+        textL = Tex(
+            r"{",
+            r"L(s)",
+            r"\over"
+            r"1 + ",
+            r"L(s)}"
+        )
+        textL.next_to(textCP)
+
+        self.wait()
+        self.play(
+            Write(textCP[4]),
+            Write(textL)
+        )
+
+        self.wait()
+        self.play(
+            FadeOut(textCP),
+            textL.shift, 3.5*LEFT
+        )
+
+        COLOR_MU = RED_A
+        COLOR_NU = BLUE_A
+
+        def colorElements(elem, lst, clr):
+            for idx in lst: elem[idx].set_color(clr)
+
+        textLIs = Tex(
+            r"L(s) = { ", 
+            r"\mu(s)",
+            r" \over ", 
+            r"\nu(s) }",
+            r" = C(s)P(s)"
+        )
+
+        
+        colorElements(textLIs, [1], COLOR_MU)
+        colorElements(textLIs, [3], COLOR_NU)
+
+        textLIs.shift(2*DOWN)
+        self.play(Write(textLIs[0:3]))
+        self.play(Write(textLIs[3:5]))
+
+        textLMuNu = Tex(
+            r"\frac{ \mu(s) }{\nu(s)}",
+            r"\over",
+            r"1 + \frac{ \mu(s) }{\nu(s)}"
+        )
+    
+        textLMuNu[0][0:4].set_color(COLOR_MU)
+        textLMuNu[0][5:10].set_color(COLOR_NU)
+        textLMuNu[2][2:6].set_color(COLOR_MU)
+        textLMuNu[2][7:11].set_color(COLOR_NU)
+
+
+        self.play(
+            ReplacementTransform(textL, textLMuNu)
+        )
+
+        self.wait()
+
+        textMuNuInT = Tex(
+            r" = ",
+            r"{\frac{ \mu(s) }{\nu(s)}",
+            r"\over",
+            r"\frac{ \nu(s) }{\nu(s)} + \frac{ \mu(s) }{\nu(s)}}"
+        )
+    
+        textMuNuInT[1][0:4].set_color(COLOR_MU)
+        textMuNuInT[1][5:10].set_color(COLOR_NU)
+        textMuNuInT[3][0:4].set_color(COLOR_NU)
+        textMuNuInT[3][5:9].set_color(COLOR_NU)
+        textMuNuInT[3][10:14].set_color(COLOR_MU)
+        textMuNuInT[3][15:19].set_color(COLOR_NU)
+
+        textMuNuInT.next_to(textLMuNu)
+        self.play(Write(textMuNuInT))
+
+        textMuNuInT2 = Tex(
+            r"{ \mu(s)",
+            r"\over",
+            r"\nu(s) + \mu(s)}"
+        )
+    
+        textMuNuInT2[0][0:4].set_color(COLOR_MU)
+        textMuNuInT2[2][0:4].set_color(COLOR_NU)
+        textMuNuInT2[2][5:9].set_color(COLOR_MU)
+
+        self.play(
+            FadeOut(textLMuNu),
+            ReplacementTransform(textMuNuInT, textMuNuInT2)
+        )
+
+        self.wait()
+
+        self.play(
+            textMuNuInT2.set_color, WHITE,
+            textLIs.set_color, WHITE
+        )
+
+        self.wait()
+        self.play(
+            textMuNuInT2[2].set_color, ORANGE
+        )
+
+        self.wait()
+        self.play(
+            textMuNuInT2[2].set_color, WHITE
+        )
+
+        self.wait()
+        self.play(
+            VGroup(textTs, textMuNuInT2).shift, 14*LEFT
+        )
+
+
+class nyquist2(Scene):
+    def construct(self):
+    
+        COLOR_MU = RED_A
+        COLOR_NU = BLUE_A
+
+        textLIs = Tex(
+            r"L(s) = { ", 
+            r"\mu(s)",
+            r" \over ", 
+            r"\nu(s) }",
+            r" = C(s)P(s)"
+        )
+
+        textLIs[1].set_color(COLOR_MU)
+        textLIs[3].set_color(COLOR_NU)
+
+        textLIs.shift(2*DOWN)
+        self.add(textLIs)
+        self.wait()
+        self.play(FadeOut(textLIs[4:5]))
+        textLIs = textLIs[0:4]
+        
+        textF = Tex(r"F(s)")
+        textF.shift(2*LEFT)
+
+        textLs = Tex(":= 1 + ", "L(s)")
+        textLs.next_to(textF)
+
+
+        textMuNu = Tex(
+            r"= { \nu(s) + \mu(s)",
+            r"\over",
+            r" \mu(s)}"
+        )
+
+        textMuNu[0][1:5].set_color(COLOR_NU)
+        textMuNu[0][6:10].set_color(COLOR_MU)
+        textMuNu[2][0:4].set_color(COLOR_MU)
+         
+        textMuNu.next_to(textF)
+
+        first = VGroup(textF, textMuNu)
+
+        self.play(Write(textF))
+        self.play(Write(textLs))
+
+        self.wait()
+
+        self.play(ReplacementTransform(textLs, textMuNu))
+
+        textArgF = Tex(
+            r"\Delta arg ",
+            r"F(j\omega)",
+            r" = ",
+            r"(m - n) \cdot \frac{\pi}{2}",
+            r" - ",
+            r"(m_i + m_r) \cdot \frac{\pi}{2}",
+            r" + ",
+            r"(n_i + 2 n_r) \cdot \frac{\pi}{2}"
+        )
+
+        self.play(
+            first.shift, 1*DOWN,
+            textLIs.shift, 1*DOWN
+        )
+
+        textArgF.next_to(first, TOP)
+        self.play(Write(textArgF))
+
+
+        ## -------------------------------------------------
+        ## m = n
+        textMuGENu = Tex(
+            r"deg(", 
+            r"\nu(s)", 
+            r") \leq deg(", 
+            r"\mu(s)", r")"
+        )
+
+        textMuGENu[1].set_color(COLOR_NU)
+        textMuGENu[3].set_color(COLOR_MU)
+        textMuGENu.next_to(textLIs.get_center())
+        textMuGENu.shift(LEFT)
+
+        self.play(ReplacementTransform(textLIs, textMuGENu))
+        self.wait()
+
+        textReplacmentNuPlusMu = Tex(r"deg(", r"\mu(s)", " + ")
+        textReplacmentNuPlusMu[1].set_color(COLOR_MU)
+        textReplacmentNuPlusMu.next_to(textMuGENu, LEFT)
+        textReplacmentNuPlusMu.shift(RIGHT)
+
+        self.play(ReplacementTransform(textMuGENu[0], textReplacmentNuPlusMu))
+
+        textMEqualN = Tex(r"\rightarrow m = n")
+        textMEqualN.next_to(textReplacmentNuPlusMu)
+
+        self.wait()
+        self.play(ReplacementTransform(
+            VGroup(textMuGENu, textLIs, textReplacmentNuPlusMu), textMEqualN
+        ))
+
+        self.wait()
+        self.play(
+            textArgF[3].set_color, ORANGE,
+            textMEqualN.set_color, ORANGE
+        )
+
+        textZero = Tex("0")
+        textZero.set_color(ORANGE)
+        textZero.next_to(textArgF[3])
+        textZero.shift(2*LEFT)
+        self.play(ReplacementTransform(textArgF[3], textZero))
+
+        self.wait()
+        self.play(
+            textArgF[3].set_color, WHITE,
+            textMEqualN.set_color, WHITE
+        )
+
+        self.wait()
+
+
+        # -----------------------------------------------
+        # Poles to the left
+        textPolesToLeft = Tex(r"\text{for Hurwitz:}")
+        textPolesToLeft.next_to(textF)
+
+        textPolesToLeft2 = Tex(r"m_i = m_r \overset{!}{=} 0")
+        textPolesToLeft2.next_to(textPolesToLeft, BOTTOM)
+
+        self.play(
+            VGroup(textF, textMuNu).shift, 12*LEFT,
+            textMEqualN.shift, 12*RIGHT
+        )
+
+        self.play(Write(textPolesToLeft))
+        self.play(Write(textPolesToLeft2))
+
+        self.play(
+            textArgF[5].set_color, ORANGE,
+            textPolesToLeft2.set_color, ORANGE
+        )
+
+        textZero2 = Tex("0")
+        textZero2.set_color(ORANGE)
+        textZero2.next_to(textArgF[5])
+        textZero2.shift(2*LEFT)
+        self.play(ReplacementTransform(textArgF[5], textZero2))
+
+        self.wait()
+        self.play(
+            textArgF[5].set_color, WHITE,
+            textPolesToLeft2.set_color, WHITE
+        )
+
+        self.wait()
+        self.play(
+            VGroup(textPolesToLeft, textPolesToLeft2).shift, 5*DOWN
+        )
+
+
+        self.play(
+            FadeOut(VGroup(
+                textZero, textZero2, 
+                textArgF[3], textArgF[4], textArgF[5], textArgF[6]
+            )),
+            textArgF[7].shift, 3*LEFT,
+            VGroup(textArgF[0], textArgF[1], textArgF[2]).shift, 3.4*RIGHT
+        )
+
+        formula = VGroup(textArgF[0], textArgF[1], textArgF[2], textArgF[7])
+        
+        self.play(formula.scale, 1.25)
+
+        textOnePlusL = Tex(r"\{1 + L(j\omega)\}") 
+        textOnePlusL.next_to(textArgF[1])
+        textOnePlusL.shift(3*LEFT)
+        textOnePlusL.scale(1.25)
+        self.play(
+            ReplacementTransform(textArgF[1], textOnePlusL),
+            textArgF[0].shift, 1.7*LEFT
+        )
+
+        self.play(
+            VGroup(textOnePlusL, textArgF[0]).set_color, BLUE_A
+        )
+
+def getControlLoop():
+    ###########################################################
+    ###########################################################
+    # Parameter
+
+    length_box = 5
+    length_line = 2
+    y_diff = 2
+    y_shift = -1
+    x_shift = 4.5
+    scale = .5
+
+    ###########################################################
+    # Plant
+    ###########################################################
+
+    plantInputLine = Line(LEFT*0,RIGHT*length_line, color=WHITE)
+    plantInputLine.shift(UP*y_diff+UP*y_shift+LEFT*x_shift)
+
+    plantOutputLine = Line(LEFT*0,RIGHT*length_line, color=WHITE)
+    plantOutputLine.next_to(plantInputLine.get_corner(RIGHT), RIGHT,buff=0)
+    plantOutputLine.shift(RIGHT*(length_box))
+
+    plantBox = Rectangle(height=y_diff*1.5, width=length_box)
+    plantBox.next_to(((plantInputLine.get_corner(RIGHT))), RIGHT,buff=0)
+    
+    plantText = TexText("Plant", "$P(s)$")
+    plantText[1].scale(1.5)
+
+    plantText[0].next_to(plantBox.get_center(), LEFT*0)
+    plantText[0].shift(UP)
+    plantText[1].next_to(plantBox.get_center(), LEFT*0)
+    plantText[1].shift(DOWN*0)
+
+    plant = VGroup(plantInputLine, plantOutputLine, plantBox, plantText)
+
+    plant.scale(scale)
+    plant.shift(UP+3*RIGHT)
+
+    ###########################################################
+    # Controller
+    ###########################################################
+    controllerInputLine = Line(LEFT*0,RIGHT*length_line, color=WHITE)
+    controllerInputLine.shift(UP*y_diff+UP*y_shift+UP+1*LEFT+LEFT*x_shift)
+    #controllerInputLine.next_to(plantInputLine.get_corner(RIGHT)+length_box, RIGHT,buff=0)
+    
+    controllerOutputLine = Line(LEFT*0,RIGHT*length_line, color=WHITE)
+    controllerOutputLine.next_to(controllerInputLine.get_corner(RIGHT), RIGHT,buff=0)
+    controllerOutputLine.shift(RIGHT*(length_box))
+
+    controllerBox = Rectangle(height=y_diff*1.5, width=length_box)
+    controllerBox.next_to(((controllerInputLine.get_corner(RIGHT))), RIGHT,buff=0)
+    
+    controllerText = TexText("Controller", "$C(s)$")
+    controllerText[1].scale(1.5)
+
+    controllerText[0].next_to(controllerBox.get_center(), LEFT*0)
+    controllerText[0].shift(UP)
+    controllerText[1].next_to(controllerBox.get_center(), LEFT*0)
+    controllerText[1].shift(DOWN*0)
+
+    controller = VGroup(controllerInputLine, controllerOutputLine, 
+                        controllerBox, controllerText)
+
+    controller.scale(scale)
+
+
+    ###########################################################
+    # Loop
+    ###########################################################
+    hgt = length_line
+    cRadius = length_line / 10
+
+    loopLineDown = Line(LEFT*0, RIGHT*0+DOWN*hgt, color=WHITE)
+    loopLineDown.next_to(plantOutputLine.get_corner(RIGHT), DOWN*hgt/2,buff=0)
+
+    lgth = (4*length_line + 2*length_box) / 2 - 1.5*cRadius
+    loopLineBottom = Line(LEFT*0, -lgth*RIGHT, color=WHITE)
+    loopLineBottom.next_to(loopLineDown.get_corner(BOTTOM), -lgth/2,buff=0)
+
+    hgt = hgt - cRadius;
+    loopLineUp = Line(LEFT*0, RIGHT*0+UP*hgt, color=WHITE)
+    loopLineUp.next_to(loopLineBottom.get_corner(LEFT), UP*hgt/2,buff=0)
+
+    connectionCircle = Circle(radius = cRadius, color=WHITE)
+    connectionCircle.next_to(loopLineUp.get_corner(TOP), UP*2*cRadius,buff=0)
+
+    minusText = TexText("-")        
+    minusText.next_to(connectionCircle.get_corner(BOTTOM) + 1.5*cRadius*RIGHT, RIGHT,buff=0)
+    minusText[0].scale(1.5)
+
+    arrowLgth = length_line/10
+    referenceLine = Line(length_line*LEFT, 0*LEFT, color=WHITE)
+    referenceArrow = Arrow(arrowLgth*RIGHT, 0*LEFT, color=WHITE, fill_color=WHITE, stroke_width=0.03)
+    referenceLine.next_to(connectionCircle.get_corner(LEFT), LEFT,buff=0)
+    referenceArrow.next_to(connectionCircle.get_corner(LEFT), LEFT,buff=0)
+    
+    referenceText = TexText("r")        
+    referenceText.next_to(referenceLine.get_corner(LEFT) + length_line/2*RIGHT + .35*UP, LEFT,buff=0)
+    #referenceText[0].scale(1.5)
+
+    controllerArrow = Arrow(arrowLgth*RIGHT, 0*LEFT, color=WHITE, fill_color=WHITE)
+    controllerArrow.next_to(controllerInputLine.get_corner(RIGHT), LEFT,buff=0)
+    plantArrow = Arrow(arrowLgth*RIGHT, 0*LEFT, color=WHITE, fill_color=WHITE)
+    plantArrow.next_to(plantInputLine.get_corner(RIGHT), LEFT,buff=0)
+    loopArrow = Arrow(0*RIGHT+arrowLgth*UP, 0*LEFT, color=WHITE, fill_color=WHITE)
+    loopArrow.next_to(loopLineUp.get_corner(TOP), BOTTOM,buff=0)
+            
+
+    return VGroup(plant, controller,
+                loopLineDown, loopLineBottom, loopLineUp,
+                connectionCircle, minusText, referenceLine, referenceText,
+                referenceArrow, controllerArrow, plantArrow, loopArrow)
+
+def getImagGrid(label, rangeX=[3], rangeY=[3]):
+    ###########################################################
+    # Hurwitz - Pole Zero Plor
+    ###########################################################
+    axes = Axes(
+        x_range=(-abs(min(rangeX)), max(rangeX)), 
+        y_range=(-abs(min(rangeY)), max(rangeY)),
+        height=6, width=6,
+        axis_config={
+            "stroke_color": GREY_A,
+            "stroke_width": 2,
+        }
+    )
+    # Keyword arguments of add_coordinate_labels can be used to
+    # configure the DecimalNumber mobjects which it creates and
+    # adds to the axes
+    axes.add_coordinate_labels(
+        font_size=30,
+        num_decimal_places=0,
+    )
+
+    xLabel = Tex("\\Re\{" + label + "\}")
+    xLabel.move_to(axes.c2p(max(rangeX)+1, 0))
+    yLabel = Tex("\\Im\{" + label + "}\}")
+    yLabel.move_to(axes.c2p(1, max(rangeY)))
+
+    return VGroup(axes, xLabel, yLabel)
+
+class nyquist3(Scene):
+    def construct(self):
+
+        texTitle = TexText("\\underline{The Nyquist Criterion:}")
+        texTitle.set_color("#ffff00")
+        texTitle.scale(1.2)
+        
+        self.play(Write(texTitle))
+        self.wait()
+        self.play(
+            texTitle.scale, 0.8,
+            texTitle.shift, 3.2*UP+3*LEFT
+        )
+
+        textForumla = Tex(
+            r"\Delta arg \{1 + L(j\omega)}\}",
+            r" = (n_i + 2n_r) \cdot \frac{\pi}{2}"
+        )
+        textForumla.scale(1.2)
+        textForumla.shift(1*UP)
+        self.play(Write(textForumla))
+
+        ## Recap parts
+
+        # ----------------------------------------------------
+        # control loop / L(j\omega)
+        textL = Tex(r"L(j\omega) = C(j\omega)P(j\omega)")
+        textL[0][0:5].set_color(BLUE)
+
+        controlLoop = getControlLoop()
+        controlLoop.scale(.6)
+        controlLoop.next_to(textL, BOTTOM)
+
+        recapL = VGroup(textL, controlLoop)
+        recapL.shift(0.5*DOWN+12*RIGHT)
+
+        self.add(recapL)
+        self.play(
+            recapL.shift, 12*LEFT,
+            textForumla[0][7:12].set_color, BLUE
+        )
+
+        self.play(
+            textL[0][6:11].set_color, RED,
+            controlLoop[1][3].set_color, RED
+        )
+        self.play(
+            textL[0][11:16].set_color, GREEN,
+            controlLoop[0][3].set_color, GREEN
+        )
+
+        self.wait()
+        self.play(
+            textL.set_color, WHITE,
+            textL.set_color, WHITE,
+            controlLoop.shift, 12*LEFT
+        )
+
+        # ----------------------------------------------------
+        # Poles of L
+        self.wait()
+
+        textL2 = Tex(
+            r"1 + L(j\omega) = ", 
+            r"{\mu(j\omega) + \nu(j\omega) \over \nu(j\omega)}",
+            r"\qquad | \quad L(j\omega) = {\mu(j\omega) \over \nu(j\omega)}"
+        )
+        textL2.scale(.85)
+        textL2[0][0:7].set_color(BLUE)
+        textL2.shift(.5*DOWN)
+
+        self.play(
+            ReplacementTransform(textL, VGroup(textL2[0], textL2[1])),
+            textForumla[0][5:12].set_color, BLUE,
+        )
+
+        self.play(
+            Write(textL2[2]),
+            textL2[1][0:5].set_color, RED_A,
+            textL2[2][7:12].set_color, RED_A,
+            textL2[2][13:18].set_color, GREEN_A, 
+            textL2[1][6:11].set_color, GREEN_A,
+            textL2[1][12:17].set_color, GREEN_A
+        )
+
+        grid = getImagGrid("s_{\\nu}")
+        grid.scale(.55)
+        grid.next_to(textL2, BOTTOM)
+        grid.shift(12*LEFT+1.7*UP)
+
+        self.play(
+            textL2[1][0:5].set_color, WHITE,
+            textL2[2][7:12].set_color, WHITE,
+            textL2[2][13:18].set_color, GREEN, 
+            textL2[1][6:11].set_color, WHITE,
+            textL2[1][12:17].set_color, GREEN,
+            textForumla[1][2:8].set_color, GREEN,
+        )
+
+        self.wait()
+
+        self.play(
+            VGroup(textL2).shift, 12*RIGHT,
+            grid.shift, 12*RIGHT,
+            textForumla.set_color, WHITE
+        )
+
+        offset = -0.575
+        dotsR = [Dot(), Dot(), Dot(), Dot()]
+        for index, dot in enumerate(dotsR): 
+            dot.set_color(GREEN)
+            dot.scale(.75)
+            dot.next_to(grid[0].c2p(offset + min(2, index)+.5, 0 if index < 2 else 3*(index-2.5)))
+
+            self.play(Write(dot))
+
+        self.play(textForumla[1][6:8].set_color, GREEN)
+
+        dotsI = [Dot(), Dot(), Dot()]
+        for index, dot in enumerate(dotsI): 
+            dot.set_color(RED)
+            dot.scale(.75)
+            dot.next_to(grid[0].c2p(offset, 0 if index < 1 else 2*(index-1.5)))
+
+            self.play(Write(dot))
+
+        self.play(textForumla[1][2:4].set_color, RED)
+
+        dots = VGroup(
+            dotsI[0], dotsI[1], dotsI[2],
+            dotsR[0], dotsR[1], dotsR[2], dotsR[3],
+        )
+
+        self.wait()
+        self.play(
+            textForumla.set_color, WHITE,
+            VGroup(grid, dots).scale, 0
+        )
+
+class nyquist4(Scene):
+    def construct(self):
+
+        texTitle = TexText("\\underline{The Nyquist Criterion:}")
+        texTitle.set_color("#ffff00")
+        texTitle.scale(.8)
+        texTitle.shift(3.2*UP+3*LEFT)
+        self.add(texTitle)
+
+        textForumla = Tex(
+            r"\Delta arg \{1 + L(j\omega)}\}",
+            r" = (n_i + 2n_r) \cdot \frac{\pi}{2}"
+        )
+        textForumla.scale(1.2)
+        textForumla.shift(1*UP)
+        self.add(textForumla)
+
+
+        grid = getImagGrid("", [-2, 4], [-4, 1])
+        axes = grid[0]
+
+        grid.scale(.75)
+        grid.shift(DOWN)
+
+        self.play(textForumla[0].set_color, BLUE)
+        self.play(
+            Write(grid),
+            textForumla.shift, 1.2*UP
+        )
+
+        graphLjwPlus1 = grid[0].get_graph(
+            lambda x: -np.sqrt(1-(x-2)**2) if x >= 1 and x <= 3 else 0,
+            discontinuities=[1, 3],
+            stroke_width=10,
+            color=GREEN,
+            x_range=[1, 3, 0.001]
+        )
+
+        indicatorX = -8
+
+        indicatorLjwPlus1 = grid[0].get_graph(
+            lambda x: -3,
+            discontinuities=[indicatorX, indicatorX+1],
+            stroke_width=10,
+            color=GREEN,
+            x_range=[indicatorX, indicatorX+1]
+        )
+
+        indicatorArrow = Arrow(axes.c2p(indicatorX, -2), axes.c2p(indicatorX+1, -2), buff=0)
+        textIndocatorArrow = Tex(r"F(j\omega) := 1 + L(j\omega)")
+        textIndocatorArrow.next_to(indicatorArrow)
+
+        textIndicatorLjwPlus1 = Tex(r"1 + L(j\omega)")
+        textIndicatorLjwPlus1.next_to(indicatorLjwPlus1)
+
+        self.play(
+            ShowCreation(indicatorLjwPlus1),
+            Write(textIndicatorLjwPlus1),
+            ShowCreation(indicatorArrow),
+            Write(textIndocatorArrow)
+        )
+
+        self.play(
+            ShowCreation(graphLjwPlus1)
+        )
+
+
+        argDot = Dot()
+        argDot.scale(0)
+        argDot.move_to(axes.c2p(1, 0))
+        argArrow = always_redraw(lambda: Arrow(axes.c2p(0, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -np.sqrt(1-(axes.p2c(argDot.get_x())[0]-2)**2)), buff=0))
+
+
+        self.play(ShowCreation(argArrow))
+        self.play(argDot.animate.move_to(axes.c2p(2, 0)))
+        self.play(argDot.animate.move_to(axes.c2p(2.99999999, 0)))
+        self.wait()
+        self.play(argDot.animate.move_to(axes.c2p(1.5, 0)))
+
+        fixedArrow = Arrow(axes.c2p(0, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -np.sqrt(1-(axes.p2c(argDot.get_x())[0]-2)**2)), buff=0)
+
+        self.add(fixedArrow)
+        self.play(FadeOut(argArrow))
+
+        graphStuff = VGroup(fixedArrow, graphLjwPlus1)
+        self.bring_to_front(fixedArrow)
+        self.play(graphStuff.shift, 1*DOWN)
+        self.play(graphStuff.shift, 1*UP)
+        self.play(graphStuff.shift, 1*RIGHT)
+
+        self.wait()
+
+        graphLjw = grid[0].get_graph(
+            lambda x: -np.sqrt(1-(x-1)**2) if x >= 0 and x <= 2 else 0,
+            discontinuities=[0, 2],
+            stroke_width=10,
+            color=RED,
+            x_range=[0, 2, 0.001]
+        )
+
+
+        indicatorLjw = grid[0].get_graph(
+            lambda x: -4,
+            discontinuities=[indicatorX, indicatorX+1],
+            stroke_width=10,
+            color=RED,
+            x_range=[indicatorX, indicatorX+1]
+        )
+
+        textIndicatorLjw = Tex(r"L(j\omega)")
+        textIndicatorLjw.next_to(indicatorLjw)
+
+        self.play(
+            ShowCreation(indicatorLjw),
+            Write(textIndicatorLjw)
+        )
+
+        self.play(
+            ShowCreation(graphLjw)
+        )
+
+        self.wait()
+
+        self.play(graphStuff.shift, 1.75*LEFT)
+
+        point = Dot()
+        point.scale(.75)
+        point.set_color(RED)
+        point.move_to(axes.c2p(-1, 0))
+        self.play(FadeIn(point))
+
+        argArrow = always_redraw(lambda: Arrow(axes.c2p(-1, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -np.sqrt(1-(axes.p2c(argDot.get_x())[0]-1)**2)), buff=0))
+        argDot.move_to(axes.c2p(.5, 0))
+        
+        self.play(ShowCreation(argArrow)) 
+        self.remove(fixedArrow)
+        self.play(argDot.animate.move_to(axes.c2p(1.9999999, 0)))
+        self.play(argDot.animate.move_to(axes.c2p(1, 0)))
+        self.wait()
+        self.play(argDot.animate.move_to(axes.c2p(1e-6, 0)))
+
+        self.play(point.scale, 1.5)
+
+        self.play(FadeOut(argArrow))
+
+        self.play(
+            VGroup(
+                grid, graphStuff, point, graphLjw,
+                indicatorLjw, textIndicatorLjw,
+                indicatorLjwPlus1, textIndicatorLjwPlus1,
+                indicatorArrow, textIndocatorArrow
+            ).shift, 20*RIGHT,
+            texTitle.shift, 5*UP,
+            textForumla.shift, 12*LEFT
+        )
+
+
+class example(Scene):
+    def construct(self):
+
+        textExample = Tex(r"\underline{\text{Example}}")
+        textExample.shift(3*UP+10*LEFT)
+
+        self.add(textExample)
+        self.play(textExample.shift, 5*RIGHT)
+
+        equation_s = Tex(r"L_{(s)}", " = {", "K", "\over ", "(s + 1)}")
+
+        self.play(Write(equation_s))
+
+        poles = Tex(r"s_1 = -1")
+        poles[0][0:2].set_color(BLUE)
+
+        polePoses = Tex(r"n_l = 1 \qquad ", r"n_i = 0 \qquad ", r"n_r = 0")
+        polePoses[0][0:2].set_color(BLUE)
+        polePoses[1][0:2].set_color(RED)
+        polePoses[2][0:2].set_color(GREEN)
+
+        poles.next_to(equation_s, BOTTOM)
+        polePoses.next_to(poles, BOTTOM)
+
+        self.play(
+            Write(poles),
+            equation_s[4].set_color, BLUE
+        )
+        self.wait()
+        self.play(
+            equation_s[4].set_color, WHITE,
+            poles.set_color, WHITE
+        )
+
+        self.play(Write(polePoses[0]))
+        self.play(Write(polePoses[1]))
+        self.play(Write(polePoses[2]))
+
+        argEquation = Tex("\\Delta ",
+                          "arg \\left\\lbrace 1 + L(j\\omega) \\right\\rbrace = ",
+                          "(n_i + 2n_r)\\frac{\\pi}{2}"
+                        )
+
+        argEquation.next_to(equation_s, BOTTOM)
+
+        self.play(ReplacementTransform(poles, argEquation))
+        self.play(
+            argEquation[2][1:3].set_color, RED,
+            argEquation[2][5:7].set_color, GREEN
+        )
+        self.wait()
+
+        textResult = Tex("0")
+        textResult.next_to(argEquation[1])
+        self.play(ReplacementTransform(
+            argEquation[2], textResult
+        ))
+
+        argEquationAll = VGroup(argEquation, textResult)
+        self.play(
+            equation_s.shift, 4*RIGHT+2*UP,
+            argEquationAll.shift, 5*RIGHT+2.6*UP,
+            polePoses.shift, 5*DOWN
+        )
+
+        equation_jw = Tex(r"L_{(j\omega)}", " = {", "K",  "\over ", "(j\omega + 1)}")
+        equation_jw.move_to(equation_s)
+
+        self.play(
+            ReplacementTransform(equation_s, equation_jw)
+        )
+
+        # -------------------------------------------------
+        k = 2
+        kText = Tex(r"K = ")
+        kText.next_to(argEquationAll, BOTTOM)
+
+        kDecimalNumber = DecimalNumber(k,**{"unit": r""})
+        kDecimalNumber.scale(.7)
+        kDecimalNumber.next_to(kText)
+
+        self.play(
+            Write(kText), 
+            Write(kDecimalNumber)
+        )
+
+
+        # -------------------------------------------------
+        # grid stuff
+        grid = getImagGrid(r"")
+        axes = grid[0]
+
+        grid.shift(4*LEFT+1*DOWN)
+        grid.scale(.8)
+        self.play(ShowCreation(grid))
+
+        graphLjw = grid[0].get_graph(
+            lambda x: -np.sqrt(1-(x-1)**2) if x >= 0 and x <= 2 else 0,
+            discontinuities=[0, 2, 0],
+            stroke_width=10,
+            color=GREEN,
+            x_range=[0, 2, 0.001]
+        )
+
+        indicatorX = 2
+
+        indicatorLjw = grid[0].get_graph(
+            lambda x: -3,
+            discontinuities=[indicatorX, indicatorX+1],
+            stroke_width=10,
+            color=GREEN,
+            x_range=[indicatorX, indicatorX+1]
+        )
+
+        indicatorArrow = Arrow(axes.c2p(indicatorX, -2), axes.c2p(indicatorX+1, -2), buff=0)
+        textIndocatorArrow = Tex(r"F(j\omega) := 1 + L(j\omega)")
+        textIndocatorArrow.scale(.7)
+        textIndocatorArrow.next_to(indicatorArrow)
+
+        textIndicatorLjw = Tex(r"L(j\omega)")
+        textIndicatorLjw.scale(.7)
+        textIndicatorLjw.next_to(indicatorLjw)
+
+        self.play(
+            ShowCreation(indicatorLjw),
+            Write(textIndicatorLjw)
+        )
+        self.play(
+            ShowCreation(graphLjw)
+        )
+
+        self.wait()
+
+        dot = Dot()
+        dot.scale(.75)
+        dot.set_color(RED)
+        dot.move_to(axes.c2p(-1, 0))
+        self.play(FadeIn(dot))
+
+        self.play(
+            Write(indicatorArrow),
+            Write(textIndocatorArrow)
+        )
+
+
+        argDot = Dot()
+        argDot.scale(0)
+        argDot.move_to(axes.c2p(1.99999999999999999, 0))
+        argArrow = always_redraw(lambda: Arrow(axes.c2p(-1, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -np.sqrt(1-(axes.p2c(argDot.get_x())[0]-1)**2)), buff=0))
+
+
+        self.play(ShowCreation(argArrow))
+        self.play(argDot.animate.move_to(axes.c2p(1, 0)))
+        self.play(argDot.animate.move_to(axes.c2p(.5, 0)))
+        self.wait()
+        self.play(argDot.animate.move_to(axes.c2p(1e-6, 0)))
+
+        self.wait()
+
+        self.play(argEquation[2].set_color, GREEN)
+        self.wait()
+        self.play(argEquation[2].set_color, WHITE)
+
+
+        ###################################################
+        # Change K
+        
+
+        self.play(
+            ChangeDecimalToValue(kDecimalNumber, 3),
+            run_time=2
+        )
+
+
+        self.play(
+            ChangeDecimalToValue(kDecimalNumber, -3),
+            run_time=2
+        )
+
+        self.wait(2)
+

@@ -19,7 +19,7 @@ class intro(Scene):
         texTitle.scale(2)
         
         self.play(Write(texTitle))
-        self.wait()
+        self.wait(2)
         self.play(texTitle.scale, 0)
 
 class controlLoop(Scene):
@@ -160,6 +160,8 @@ class controlLoop(Scene):
                              loopLineDown, loopLineBottom, loopLineUp,
                              connectionCircle, minusText, referenceLine, referenceText,
                              referenceArrow, controllerArrow, plantArrow, loopArrow)
+
+        self.wait(2)
 
 class Ts(Scene):
     CONFIG={
@@ -531,8 +533,8 @@ class possibilities(Scene):
         )
 
         textOptions = [ 
-            TexText("Calcualte poles explicity"),
-            TexText("Use the Routh-Schema"),
+            TexText("Calculate poles explicit"),
+            TexText("Use the Routh scheme"),
             TexText("Use Nyquist criterion"),
             TexText("...")
         ]
@@ -545,6 +547,8 @@ class possibilities(Scene):
             
             self.play(Write(textOptions[index]))
             self.wait()
+
+        self.wait(2)
 
         nyquistOption = TexText("\\underline{Nyquist criterion}");
 
@@ -563,7 +567,7 @@ class possibilities(Scene):
 
         fact1 = TexText("Graphical way")
         fact2 = TexText("It uses $L(j\omega)$")
-        fact3 = TexText("Less infomration necessary")
+        fact3 = TexText("Less information necessary")
         fact4 = TexText("There is a simplified Nyquist criterion")
 
         fact1.shift(2*UP+3*LEFT)
@@ -584,6 +588,8 @@ class possibilities(Scene):
         self.play(Write(fact3))
         self.wait()
         self.play(Write(fact4))
+
+        self.wait(2)
 
         self.play(
             fact1.shift, 5*UP+5*LEFT,
@@ -617,7 +623,7 @@ class deltaArg(Scene):
             self.play(textExample[5].set_color, ORANGE)
             self.play(Write(textBetaIn))
 
-            self.wait()
+            self.wait(2)
             self.play(
                 textBetaIn[0].set_color, WHITE,
                 textExample[5].set_color, WHITE
@@ -803,11 +809,11 @@ class deltaArg(Scene):
                 lines[offset+2].set_color(RED_A)
                 lines[offset+4].set_color(GREEN_A)
 
-                self.play(
-                    Write(lines[offset]),
-                    Write(lines[offset+2]),
-                    Write(lines[offset+4])
-                )
+                #self.play(
+                #    Write(lines[offset]),
+                #    Write(lines[offset+2]),
+                #    Write(lines[offset+4])
+                #)
 
             ex1 = VGroup(dotEx1, lines[0], lines[1])
             ex2 = VGroup(dotEx2, lines[2], lines[3])
@@ -821,10 +827,10 @@ class deltaArg(Scene):
 
         # ----------------------------------------------
 
-        self.play(
-            FadeOut(ex2),
-            FadeOut(ex3)
-        )
+        #self.play(
+        #    FadeOut(ex2),
+        #    FadeOut(ex3)
+        #)
 
         argDot = Dot()
         argDot.scale(0)
@@ -835,7 +841,7 @@ class deltaArg(Scene):
         argText.next_to(argDot, LEFT)
         argIndicator = VGroup(argDot, argText)
 
-        indicatorOffset = -.5;
+        indicatorOffset = -.61;
         self.add(argDot)
         self.play(FadeIn(argIndicator), FadeIn(argArrow))
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -1)))
@@ -850,6 +856,10 @@ class deltaArg(Scene):
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -2)))
 
         self.wait()
+
+        self.play(Write(lines[0]), Write(lines[1]))
+        self.wait(2)
+
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -300)))
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, -5)))
         self.play(argIndicator.animate.move_to(axes.c2p(-2+indicatorOffset, 5)))
@@ -857,6 +867,7 @@ class deltaArg(Scene):
 
 
         self.wait()
+
         
 
         self.play(FadeOut(argIndicator), FadeOut(argArrow))
@@ -894,6 +905,7 @@ class deltaArg(Scene):
         self.wait()
 
 
+
         self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, -10)))
         self.play(argIndicator.animate.move_to(axes.c2p(0+indicatorOffset, 10)))
 
@@ -924,7 +936,6 @@ class deltaArg(Scene):
         self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -2)))
 
         self.wait()
-
 
         self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -10)))
         self.play(argIndicator.animate.move_to(axes.c2p(2+indicatorOffset, -300)))
@@ -2054,7 +2065,7 @@ def getControlLoop():
                 connectionCircle, minusText, referenceLine, referenceText,
                 referenceArrow, controllerArrow, plantArrow, loopArrow)
 
-def getImagGrid(label, rangeX=[3], rangeY=[3]):
+def getImagGrid(label, rangeX=[3], rangeY=[3], xOffset=1):
     ###########################################################
     # Hurwitz - Pole Zero Plor
     ###########################################################
@@ -2076,9 +2087,9 @@ def getImagGrid(label, rangeX=[3], rangeY=[3]):
     )
 
     xLabel = Tex("\\Re\{" + label + "\}")
-    xLabel.move_to(axes.c2p(max(rangeX)+1, 0))
+    xLabel.move_to(axes.c2p(max(rangeX)+xOffset, 0))
     yLabel = Tex("\\Im\{" + label + "}\}")
-    yLabel.move_to(axes.c2p(1, max(rangeY)))
+    yLabel.move_to(axes.c2p(xOffset, max(rangeY)))
 
     return VGroup(axes, xLabel, yLabel)
 
@@ -2391,8 +2402,12 @@ class example(Scene):
 
         self.play(Write(equation_s))
 
+
         poles = Tex(r"s_1 = -1")
         poles[0][0:2].set_color(BLUE)
+
+
+        self.wait(2)
 
         polePoses = Tex(r"n_l = 1 \qquad ", r"n_i = 0 \qquad ", r"n_r = 0")
         polePoses[0][0:2].set_color(BLUE)
@@ -2436,12 +2451,16 @@ class example(Scene):
             argEquation[2], textResult
         ))
 
+        self.wait()
+
         argEquationAll = VGroup(argEquation, textResult)
         self.play(
             equation_s.shift, 4*RIGHT+2*UP,
             argEquationAll.shift, 5*RIGHT+2.6*UP,
             polePoses.shift, 5*DOWN
         )
+
+        self.wait()
 
         equation_jw = Tex(r"L_{(j\omega)}", " = {", "K",  "\over ", "(j\omega + 1)}")
         equation_jw.move_to(equation_s)
@@ -2451,23 +2470,43 @@ class example(Scene):
         )
 
         # -------------------------------------------------
-        k = 2
+        w, k = 0, 2
+
         kText = Tex(r"K = ")
         kText.next_to(argEquationAll, BOTTOM)
+
+        wText = Tex(r"\omega = ")
+        wText.next_to(kText, BOTTOM)
 
         kDecimalNumber = DecimalNumber(k,**{"unit": r""})
         kDecimalNumber.scale(.7)
         kDecimalNumber.next_to(kText)
+
+        wDecimalNumber = DecimalNumber(w,**{"unit": r""})
+        wDecimalNumber.scale(.7)
+        wDecimalNumber.next_to(wText)
+
+        self.wait()
 
         self.play(
             Write(kText), 
             Write(kDecimalNumber)
         )
 
+        self.wait()
+
+        self.play(
+            Write(wText), 
+            Write(wDecimalNumber)
+        )
+
+
+        self.wait()
+
 
         # -------------------------------------------------
         # grid stuff
-        grid = getImagGrid(r"")
+        grid = getImagGrid(r"L_{(j\omega)}", xOffset=1.2)
         axes = grid[0]
 
         grid.shift(4*LEFT+1*DOWN)
@@ -2501,21 +2540,91 @@ class example(Scene):
         textIndicatorLjw.scale(.7)
         textIndicatorLjw.next_to(indicatorLjw)
 
-        self.play(
-            ShowCreation(indicatorLjw),
-            Write(textIndicatorLjw)
+        #self.play(
+        #    ShowCreation(indicatorLjw),
+        #    Write(textIndicatorLjw)
+        #)
+
+        # ----------------------------------------
+        #self.play(
+        #    ShowCreation(graphLjw)
+        #)
+
+        # ----------------------------------------
+        # Change omega
+        
+        L = lambda w, k: k / ((w*1.j + 1)) 
+
+        tol = 1e-9
+        LPoints = lambda t: np.array([np.real(L(min(t, wDecimalNumber.get_value()), kDecimalNumber.get_value())), \
+                                      np.imag(L(min(t, wDecimalNumber.get_value()), kDecimalNumber.get_value())), \
+                                      0])
+        
+        tRange_ = [2*tol, 30, .01]
+
+        plane = axes
+        locus = plane.get_parametric_curve(
+            LPoints,
+            t_range=tRange_,
+            tolerance_for_point_equality=tol,
+            epsilon=tol
         )
-        self.play(
-            ShowCreation(graphLjw)
+        
+
+        locus.add_updater(
+            lambda mob: mob.become(plane.get_parametric_curve(
+                LPoints,
+                t_range=tRange_,
+                tolerance_for_point_equality=tol,
+                epsilon=tol, 
+                color=[RED,YELLOW,BLUE,RED])
+            )
         )
+        
+        plane.add(locus)
+
 
         self.wait()
+   
+        self.play(
+            wText[0][0].set_color, RED,
+            equation_jw[0][3].set_color, RED,
+            equation_jw[4][2].set_color, RED
+        )
+
+
+        self.wait()
+
+        self.play(
+            ChangeDecimalToValue(wDecimalNumber, 30),
+            run_time=2
+        )
+
+        wInfValue = Tex(r"\infty")
+        wInfValue.next_to(wText)
+
+
+        self.wait()
+
+        self.play(ReplacementTransform(wDecimalNumber, wInfValue))
+
+        wDecimalNumber.set_value(1e6)
+
+        self.wait()
+
+        self.play(
+            wText.set_color, WHITE,
+            equation_jw.set_color, WHITE
+        )
 
         dot = Dot()
         dot.scale(.75)
         dot.set_color(RED)
         dot.move_to(axes.c2p(-1, 0))
         self.play(FadeIn(dot))
+
+
+        self.wait()
 
         self.play(
             Write(indicatorArrow),
@@ -2526,36 +2635,71 @@ class example(Scene):
         argDot = Dot()
         argDot.scale(0)
         argDot.move_to(axes.c2p(1.99999999999999999, 0))
-        argArrow = always_redraw(lambda: Arrow(axes.c2p(-1, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -np.sqrt(1-(axes.p2c(argDot.get_x())[0]-1)**2)), buff=0))
 
+        arrowR = lambda k_: k_ / 2
+        argArrow = always_redraw(lambda: Arrow(axes.c2p(-1, 0), axes.c2p(axes.p2c(argDot.get_x())[0], -1*np.sign(kDecimalNumber.get_value())*np.sqrt(arrowR(kDecimalNumber.get_value())**2-(axes.p2c(argDot.get_x())[0]-arrowR(kDecimalNumber.get_value()))**2)), buff=0))
+
+
+
+        self.wait()
 
         self.play(ShowCreation(argArrow))
         self.play(argDot.animate.move_to(axes.c2p(1, 0)))
-        self.play(argDot.animate.move_to(axes.c2p(.5, 0)))
-        self.wait()
         self.play(argDot.animate.move_to(axes.c2p(1e-6, 0)))
 
-        self.wait()
+        self.wait(2)
 
         self.play(argEquation[2].set_color, GREEN)
         self.wait()
-        self.play(argEquation[2].set_color, WHITE)
 
 
         ###################################################
         # Change K
-        
 
         self.play(
-            ChangeDecimalToValue(kDecimalNumber, 3),
-            run_time=2
+            kText[0][0].set_color, BLUE,
+            equation_jw[2].set_color, BLUE
         )
 
 
+        self.wait()
+
         self.play(
-            ChangeDecimalToValue(kDecimalNumber, -3),
+            ChangeDecimalToValue(kDecimalNumber, 2.999999999),
             run_time=2
+        )
+
+        argDot.move_to(axes.c2p(2.999999999, 0))
+        self.play(argDot.animate.move_to(axes.c2p(1e-6, 0)))
+
+
+        self.wait()
+
+        self.play(
+            ChangeDecimalToValue(kDecimalNumber, -1),
+            run_time=2
+        )
+
+        self.play(argEquation[2].set_color, RED)
+
+
+        self.wait()
+
+        self.play(
+            ChangeDecimalToValue(kDecimalNumber, -2),
+            run_time=2
+        )
+
+        argDot.move_to(axes.c2p(-1.999999999, 0))
+        self.play(argDot.animate.move_to(axes.c2p(-1e-6, 0)))
+
+        self.wait()
+
+        self.play(
+            kText.set_color, WHITE,
+            equation_jw.set_color, WHITE
         )
 
         self.wait(2)
+
 
